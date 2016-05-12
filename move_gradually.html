@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>无标题文档</title>
+<style>
+*{margin:0; padding:0;}
+#box{
+	background-color:#FF0000;
+	left:-300px;
+	position:relative;
+	height:300px;
+	width:300px;	
+}
+#choose{
+	width:50px;
+	heigh:100px;
+	position:absolute;
+	top:100px;
+	left:300px;
+	background-color:#00FF00;
+}	
+</style>
+<script>
+window.onload = function(){
+	oDiv = document.getElementById('box');
+	oDiv.onmouseover = function(){
+		startMove(0);
+	}
+	oDiv.onmouseout = function(){
+		startMove(-300);
+	}
+}
+
+var timer = null;
+
+function startMove(iTarget){
+	oDiv = document.getElementById('box');
+	clearInterval(timer);
+	timer = setInterval(function(){
+		var speed = (iTarget - oDiv.offsetLeft)/10;
+		speed = speed>0?Math.ceil(speed):Math.floor(speed);
+		if(iTarget == oDiv.offsetLeft){
+			clearInterval(timer);
+		}else{
+			oDiv.style.left = oDiv.offsetLeft + speed + 'px';
+		}
+	},30)
+}
+	
+</script>
+</head>
+
+<body>
+<div id="box">
+	<span id = "choose">choose</span>
+</div>
+</body>
+</html>
