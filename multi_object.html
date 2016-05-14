@@ -1,0 +1,63 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>多物体运动</title>
+</head>
+<style>
+*{margin:0; padding:0;}
+li{
+	height:100px;
+	width:200px;
+	background-color:#FFFF00;
+	margin-bottom:20px;
+	list-style:none;
+	border:4px solid #000;
+	}	
+</style>
+
+<script>
+window.onload=function(){
+	var oli = document.getElementsByTagName("li");
+	for(var i = 0; i<oli.length; i++){
+	oli[i].timer = null
+		oli[i].onmouseover = function(){
+			startMove(this,400);
+		} 
+		oli[i].onmouseout = function(){
+			startMove(this,200);
+		}
+	}
+}
+var alpha = 30;
+//var timer = null;//定时器公用会出现问题
+function startMove(obj,iTarget){
+	clearInterval(obj.timer)
+	obj.timer = setInterval(function(){
+		var icur = parseInt(getStyle(obj,'width')); 
+		var speed = (iTarget - icur)/8;
+		speed = speed > 0?Math.ceil(speed):Math.floor(speed);
+		if(icur == iTarget){
+			clearInterval(obj.timer);
+		}else{
+			obj.style['width'] = icur + speed + 'px' 
+		}
+	},30)
+}
+function getStyle(obj,attr){
+	if(obj.currentStyle){//ie
+		return obj.currentStyle[attr];
+	}else{//firefox
+		return getComputedStyle(obj,false)[attr];
+	}
+}
+</script>
+<body>
+<ul>
+	<li id="li1"></li>
+	<li id="li2"></li>
+	<li></li>
+</ul>
+</body>
+</html>
